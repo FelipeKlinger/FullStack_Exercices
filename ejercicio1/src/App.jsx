@@ -1,3 +1,5 @@
+import { Component } from "react"
+
 const Header = (props) => {
 
   return (
@@ -11,17 +13,14 @@ const Header = (props) => {
   )
 }
 
-const Content = (props) => {
-  const part1 = 'Fundamentals of React'
-  const part2 = 'Using props to pass data'
-  const part3 = 'State of a component'
+const Content = (props) => { // props es un objeto que contiene las propiedades pasadas al componente
+
 
   return (
     <div>
-  
-      <Part name={part1} />
-      <Part name={part2}  />
-      <Part name={part3}  />
+      <Part name={props.part1.name} exercises={props.part1.exercises} /> 
+      <Part name={props.part2.name} exercises={props.part2.exercises} />
+      <Part name={props.part3.name} exercises={props.part3.exercises} /> 
     </div>
   )
 }
@@ -29,39 +28,41 @@ const Content = (props) => {
 const Part = (props) => {
   return (
     <p>
-      {props.name} 
+      {props.name} {props.exercises} 
     </p>
   )
 }
 
-const Total = (props) => {
-
-  return (
-
-    <div>
-    <p>
-      {props.total}
-    </p>
-
-    </div>
-
-  )
-
-}
+////////////// Interfaz principal //////////////
 
 const App = () => {
-  const course = 'Half Stack application development'
-  const exercises1 = 10
-  const exercises2 = 7
-  const exercises3 = 14
+
+  const course = {
+    name: 'Half Stack application development',
+
+    parts: [
+      {
+        name: 'Fundamentals of React',
+        exercises: 10
+      },
+      {
+        name: 'Using props to pass data',
+        exercises: 7
+      },
+      {
+        name: 'State of a component',
+        exercises: 14
+      }
+    ]
+  }
 
   return (
+  
     <div>
-      <Header course={course} />
-      <Total total={exercises1} /> 
-      <Total total={exercises2} /> 
-      <Total total={exercises3} /> 
+      <Header course={course.name} />
+      <Content part1={course.parts[0]} part2={course.parts[1]} part3={course.parts[2]} />  
     </div>
+
   )
 }
 
