@@ -1,67 +1,39 @@
-import { Component } from "react"
+import { useState } from 'react'
 
-const Header = (props) => {
+const Header = ({text}) => <h1>{text}</h1>
 
-  return (
+const Button = ({handleClick, text }) => (
+  <button onClick={handleClick}>
+    {text}
+  </button>
+)
 
-    <div>
-    <p>
-      {props.course}
-    </p>
-    </div>
-
-  )
-}
-
-const Content = (props) => { // props es un objeto que contiene las propiedades pasadas al componente
-
-
-  return (
-    <div>
-      <Part name={props.part1.name} exercises={props.part1.exercises} /> 
-      <Part name={props.part2.name} exercises={props.part2.exercises} />
-      <Part name={props.part3.name} exercises={props.part3.exercises} /> 
-    </div>
-  )
-}
-
-const Part = (props) => {
-  return (
-    <p>
-      {props.name} {props.exercises} 
-    </p>
-  )
-}
-
-////////////// Interfaz principal //////////////
+const Nombre = ({nombre, estado}) => <p>{nombre} {estado}</p>
 
 const App = () => {
+  // guarda los clics de cada botón en su propio estado
+  const [good, setGood] = useState(0)
+  const [neutral, setNeutral] = useState(0)
+  const [bad, setBad] = useState(0)
 
-  const course = {
-    name: 'Half Stack application development',
+const handleGoodClick = () => setGood(good + 1)
+const handleNeutraClick = () => setNeutral(neutral + 1)
+const handleBadClick = () => setBad(bad + 1)
 
-    parts: [
-      {
-        name: 'Fundamentals of React',
-        exercises: 10
-      },
-      {
-        name: 'Using props to pass data',
-        exercises: 7
-      },
-      {
-        name: 'State of a component',
-        exercises: 14
-      }
-    ]
-  }
 
   return (
-  
     <div>
-      <Header course={course.name} />
-      <Content part1={course.parts[0]} part2={course.parts[1]} part3={course.parts[2]} />  
+    <Header text='give feedback' /> 
+  <Button handleClick={handleGoodClick}  text="Good"></Button>
+  <Button handleClick={handleNeutraClick} text="neutral"></Button>       
+  <Button handleClick={handleBadClick} text="bad"></Button>       
+  <Header text='Statics' />     
+   <Nombre nombre= 'Good' estado= {good}/>
+   <Nombre nombre= 'Neutral' estado= {neutral}/>
+   <Nombre nombre= 'Bad' estado= {bad}/>
+
     </div>
+
 
   )
 }
