@@ -8,7 +8,7 @@ const Button = ({ handleClick, text }) => (
   </button>
 )
 
-const Nombre = ({ nombre, estado }) => <p>{nombre} {estado}</p>
+const Nombre = ({ nombre, estado }) => <p>{nombre} {estado}</p>  
 
 const App = () => {
   // guarda los clics de cada botón en su propio estado
@@ -31,41 +31,42 @@ const App = () => {
     setAll(all + 1)
   }
 
-  const Statics = () => { //recordar que las funciones retornan lo que sea, tambien elementos de interfaz dentro de un <div> independientemente del return de App
+  const Statics = () => {
     if (all === 0) {
       return <p> No feedback given</p>
-    }
+    }    
 
     else {
 
-      const average = (good - bad) / all;
-      const positive = (good / all) * 100;
+      const average = (good-bad) / all;
+      const positive = (good / all) *100;
 
       return (
 
         <div>
-          <Nombre nombre='Good' estado={good} />
-          <Nombre nombre='Neutral' estado={neutral} />
-          <Nombre nombre='Bad' estado={bad} />
-          <Nombre nombre='all' estado={all} />
-          <p>Average {average}</p>
-          <p>Positive {positive} %</p>
+      <Nombre nombre='Good' estado={good} />
+      <Nombre nombre='Neutral' estado={neutral} />
+      <Nombre nombre='Bad' estado={bad} />
+      <Nombre nombre='all' estado={all} />
+      <p>Average {average}</p>
+      <p>Positive {positive} %</p>
         </div>
-
+    
       )
 
     }
   }
-
+  
   return (
     <div>
       <Header text='give feedback' />
       <Button handleClick={handleGoodClick} text="Good"></Button>
       <Button handleClick={handleNeutraClick} text="neutral"></Button>
       <Button handleClick={handleBadClick} text="bad"></Button>
-      <Header text='Statics' />
+      <Header text='Statics' />  
       <Statics />
     </div>
+
 
   )
 }
