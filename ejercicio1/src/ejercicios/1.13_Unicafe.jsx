@@ -5,6 +5,8 @@ const Button = ({ handleClick, text }) => (
   </button>
 )
 
+
+
 const App = () => {
   const anecdotes = [
     'If it hurts, do it more often.',
@@ -39,6 +41,7 @@ const App = () => {
       <p>has {votes[selected]} votes</p>
       <Button handleClick={randomAnecdote} text="next anecdote" />
       <Button handleClick={handleVote} text="vote" />
+      
     </div>
   )
 }
