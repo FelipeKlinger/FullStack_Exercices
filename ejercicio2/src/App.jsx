@@ -1,45 +1,65 @@
 import { useState } from 'react'
-import Note from './components/Note'
 
-const App = (props) => {
+const App = () => {
 
-  const [notes, setNotes] = useState(props.notes)
-  const [newNote, setNewNote] = useState('A new note that can see in the other side it is like a magic')
-  const [showAll, setShowAll] = useState(true)
-  const notesToShow = showAll ? notes : notes.filter(note => note.important === true)  
-
-  const addNote = (event) => { // controlador de eventos para el formulario
-
-    event.preventDefault()
-
-    const noteObject = {
-      content: newNote,
-      important: Math.random() < 0.5,
-      id: notes.length + 1,
+  const [persons, setPersons] = useState([
+    {
+      name: 'Arto Hellas',
+      id: 1
     }
 
-    setNotes(notes.concat(noteObject))
-    setNewNote('')
+  ])
+  const [newName, setNewName] = useState('')
+
+
+  // Controlador de evento para agregar
+  const addPerson = (event) => {
+    event.preventDefault()
+    const personObject = {
+      name: newName,
+      id: persons.length + 1
+    }
+
+    if (persons.some(personExist => personExist.name === personObject.name)) { // Retorna un true si encuentra dicho elemento que coincida
+      alert(` ${personObject.name} "Ya existe" `)
+    }
+    else {
+      setPersons(persons.concat(personObject));
+      setNewName('');
+
+    }
+
   }
 
   const handleNoteChange = (event) => { // controlador de eventos para el input
     console.log(event.target.value)
-    setNewNote(event.target.value)
+    setNewName(event.target.value)
   }
+
+  const personShow = persons
+
   return (
     <div>
-      <h1>Notes</h1>
-      <ul>
-        {notesToShow.map(note =>
-          <Note key={note.id} note={note} />
-        )}
-      </ul>
-      <form onSubmit={addNote}>
-        <input value={newNote} onChange={handleNoteChange} />
-        <button type="submit">save</button>
+      <h2>Phonebook</h2>
+
+      <form onSubmit={addPerson} >
+        <div>
+          <input value={newName} onChange={handleNoteChange} />
+        </div>
+        <div>
+          <button type="submit">add</button>
+        </div>
       </form>
+
+      <h2>Numbers</h2>
+      <ul>
+        {personShow.map(person => <li key={person.id}>
+          {person.name}
+        </li>)}
+
+      </ul>
     </div>
   )
 }
 
-export default App 
+export default App
