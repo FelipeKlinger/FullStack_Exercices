@@ -1,7 +1,8 @@
-import { useState, useEffect} from 'react';
+import { useState, useEffect } from 'react';
 import PersonForm from './components/PersonForm';
 import Filter from './components/Filter';
 import Persons from './components/Persons';
+import personService from './services/persons';
 
 const App = (props) => {
 
@@ -11,6 +12,21 @@ const App = (props) => {
   const [filterName, setFilterName] = useState('')
 
 
+
+  useEffect(() => {
+    personService.getAll().then((initialpersons) => {
+      setPersons(initialpersons)
+    })
+  }, [])
+
+  const buttonDelete = (id) => {
+    const persoDelete = persons.find((n) => n.id === id);
+    personService.deleteOne(id).then(() => {
+      if (window.confirm(` Do you really delete ${persoDelete.name} `)) {
+        setPersons(persons.filter(person => person.id !== id))
+      }
+    })
+  }
   // Controlador de evento para agregar
   const addPerson = (event) => {
     event.preventDefault()
@@ -48,7 +64,6 @@ const App = (props) => {
     setNumberPhone(event.target.value)
   }
 
-  const personShow = persons
   const personsToshow = filterName.trim() === '' ? persons : persons.filter(person => person.name.toLowerCase().includes(filterName.toLowerCase().trim()))
 
   return (
@@ -58,7 +73,14 @@ const App = (props) => {
       <h3>Add a new</h3>
       <PersonForm addPerson={addPerson} numberPhone={numberPhone} newName={newName} handleNoteChange={handleNoteChange} handleNumberPhone={handleNumberPhone} />
       <h2>Numbers</h2>
-      <Persons personsToshow={personsToshow} />
+      <ul>
+        {personsToshow.map((person) => (
+          <Persons key={person.id}
+            person={person}
+            deleteOne={() => buttonDelete(person.id)}
+          />
+        ))}
+      </ul>
     </div>
   )
 }
