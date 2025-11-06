@@ -9,3 +9,13 @@ li {
   font-size: 15px;
   font-weight: bold;
 }
+
+.añadido {
+  width: 60%;
+  padding: 10px;
+  margin: 20px auto;
+  box-sizing: border-box;
+  border: solid 10px green;
+  border-radius: 15px;
+  background-color: antiquewhite;
+}

@@ -2,16 +2,16 @@ import { useState, useEffect } from 'react';
 import PersonForm from './components/PersonForm';
 import Filter from './components/Filter';
 import Persons from './components/Persons';
+import Notification from './components/Notification';
 import personService from './services/persons';
 
 const App = (props) => {
 
   const [persons, setPersons] = useState([]);
-  const [newName, setNewName] = useState('')
-  const [numberPhone, setNumberPhone] = useState('')
-  const [filterName, setFilterName] = useState('')
-
-
+  const [newName, setNewName] = useState('');
+  const [numberPhone, setNumberPhone] = useState('');
+  const [filterName, setFilterName] = useState('');
+  const [message, setMessege] = useState(null);
 
   useEffect(() => {
     personService.getAll().then((initialpersons) => {
@@ -21,28 +21,61 @@ const App = (props) => {
 
   const buttonDelete = (id) => {
     const persoDelete = persons.find((n) => n.id === id);
-    personService.deleteOne(id).then(() => {
-      if (window.confirm(` Do you really delete ${persoDelete.name} `)) {
-        setPersons(persons.filter(person => person.id !== id))
-      }
-    })
-  }
+
+    if (window.confirm(`Do you really want to delete ${persoDelete.name}?`)) {
+      personService.deleteOne(id).then(() => { setPersons(persons.filter(person => person.id !== id)); })
+    }
+  };
+
   // Controlador de evento para agregar
   const addPerson = (event) => {
-    event.preventDefault()
+
+    event.preventDefault();
+
     const personObject = {
       name: newName,
-      number: numberPhone,
-      id: persons.length + 1
+      number: numberPhone
     }
 
-    if (persons.some(personExist => personExist.name === personObject.name)) { // Retorna un true si encuentra dicho elemento que coincida
-      alert(` ${personObject.name} "Ya existe" `)
+    if (persons.some(personExist => personExist.name.trim().toLowerCase() === personObject.name.trim().toLowerCase())) { //some() busca en el array la primera coincidencia
+
+      if (window.confirm(`${personObject.name} ya existe, ¿desea cambiar el número?`)) {
+
+        const person = persons.find(p => p.name.trim().toLowerCase() === personObject.name.trim().toLowerCase()); // filtra y retorna al elemnto que se le cambia el numero
+
+        const updatedPerson = { ...person, number: personObject.number }; // ...spread es un operador que crea un objeto con los valores pero sobreescribe el que se le indique
+
+        personService
+          .update(person.id, updatedPerson)
+          .then(returnedPerson => {
+            setPersons(
+              persons.map(p => p.id !== person.id ? p : returnedPerson) // p mira todo los objetos de persons y si el id no es de la persona 
+              // que se quiere cambiar person.id (Linea 47) mete al array nuevo el objecto p, si los ids son iguales mete la respuesta de Axios que es el objecto
+            );
+            setNewName('')
+            setNumberPhone('')
+          })
+          .catch(error => {
+            alert('Error actualizando el contacto');
+          });
+      }
     }
     else {
-      setPersons(persons.concat(personObject));
-      setNewName('');
-      setNumberPhone('')
+      personService
+        .create(personObject)
+        .then(returnedPerson => {
+          setPersons(persons.concat(returnedPerson));
+          setMessege(`Added ${returnedPerson.name}`);
+          setTimeout(() => {
+            setMessege(null);
+          }, 4000);
+
+          setNewName('');
+          setNumberPhone('')
+        })
+        .catch(error => {
+          alert('Error al agregar el contacto');
+        });
     }
 
   }
@@ -68,6 +101,7 @@ const App = (props) => {
 
   return (
     <div>
+      <Notification messege={message} />
       <h2>Phonebook</h2>
       <Filter handleFilter={handleFilter} filterName={filterName} /> <br />
       <h3>Add a new</h3>
