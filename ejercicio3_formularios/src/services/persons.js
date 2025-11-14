@@ -1,10 +1,8 @@
-import axios from 'axios'
+import axios from 'axios' 
 const baseURL = '/api/persons'
 
 const getAll = () => {
-    return axios
-        .get(baseURL)
-        .then(response => response.data)
+    return axios.get(baseURL).then(response => response.data)
 }
 
 const deleteOne = (id) => {
@@ -16,6 +14,7 @@ const create = (newObject) => {
     .post(baseURL, newObject)
     .then(response => response.data)
 }
+
 
 const update = (id, updatedObject) => {
   return axios

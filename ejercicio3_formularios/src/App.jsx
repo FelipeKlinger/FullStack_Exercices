@@ -14,12 +14,12 @@ const App = (props) => {
   const [message, setMessege] = useState(null);
 
   useEffect(() => {
-    personService.getAll().then((initialpersons) => {
-      setPersons(initialpersons)
+    personService.getAll().then((initialpersons) => { // obtener los datos del servidor con axios
+      setPersons(initialpersons) // persons es el estado y se actualiza con los datos del servidor
     })
   }, [])
 
-  const buttonDelete = (id) => {
+  const buttonDelete = (id) => { 
     const persoDelete = persons.find((n) => n.id === id);
 
     if (window.confirm(`Do you really want to delete ${persoDelete.name}?`)) {
@@ -109,9 +109,9 @@ const App = (props) => {
       <h2>Numbers</h2>
       <ul>
         {personsToshow.map((person) => (
-          <Persons key={person.id}
+          <Persons key={person.id} 
             person={person}
-            deleteOne={() => buttonDelete(person.id)}
+            deleteOne={() => buttonDelete(person.id)} // 
           />
         ))}
       </ul>
