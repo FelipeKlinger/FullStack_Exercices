@@ -4,6 +4,7 @@ import Filter from './components/Filter';
 import Persons from './components/Persons';
 import Notification from './components/Notification';
 import personService from './services/persons';
+import Navbar from './components/Navbar';
 
 const App = (props) => {
 
@@ -19,7 +20,7 @@ const App = (props) => {
     })
   }, [])
 
-  const buttonDelete = (id) => { 
+  const buttonDelete = (id) => {
     const persoDelete = persons.find((n) => n.id === id);
 
     if (window.confirm(`Do you really want to delete ${persoDelete.name}?`)) {
@@ -100,7 +101,11 @@ const App = (props) => {
   const personsToshow = filterName.trim() === '' ? persons : persons.filter(person => person.name.toLowerCase().includes(filterName.toLowerCase().trim()))
 
   return (
-    <div>
+<>
+  <div>
+    <Navbar />
+  </div>
+    <div className="container">
       <Notification messege={message} />
       <h2>Phonebook</h2>
       <Filter handleFilter={handleFilter} filterName={filterName} /> <br />
@@ -109,13 +114,14 @@ const App = (props) => {
       <h2>Numbers</h2>
       <ul>
         {personsToshow.map((person) => (
-          <Persons key={person.id} 
+          <Persons key={person.id}
             person={person}
             deleteOne={() => buttonDelete(person.id)} // 
           />
         ))}
       </ul>
-    </div>
+  </div>
+</>
   )
 }
 

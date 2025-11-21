@@ -3,6 +3,7 @@ import Note from './components/Note'
 import Notification from './components/Notification'
 import Footer  from './components/Footer'
 import noteService from './services/notes'
+import Navbar from './components/Navbar'
 
 const App = () => {
   const [notes, setNotes] = useState([])
@@ -55,7 +56,10 @@ const App = () => {
   const notesToShow = showAll ? notes : notes.filter((note) => note.important)
 
   return (
+    <> 
+    <Navbar />
     <div>
+      <div className="container"> 
       <h1>Notes</h1>
       <Notification messege ={errorMessage} />
       <div>
@@ -74,10 +78,12 @@ const App = () => {
       </ul>
       <form onSubmit={addNote}>
         <input value={newNote} onChange={handleNoteChange} />
-        <button type="submit">save</button>
+        <button type="submit" className='button is-small'>save</button>
       </form>
       <Footer /> 
+      </div>
     </div>
+    </>
   )
 }
 

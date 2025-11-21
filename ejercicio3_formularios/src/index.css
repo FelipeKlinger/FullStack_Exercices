@@ -1,13 +1,17 @@
-h1 {
-  color: green;
-  font-style: italic;
+@import "https://cdn.jsdelivr.net/npm/bulma@1.0.4/css/bulma.min.css";
+
+:root{
+
+  --main-color: #ffff;
+  --secondary-color: #0000;
+  --font-family: 'Helvetica Neue', sans-serif;
 }
 
-li {
-  color: purple;
-  padding-top: 3px;
-  font-size: 15px;
-  font-weight: bold;
+body {
+background-color: var(--main-color);
+height: 100vh;
+margin: 0;
+
 }
 
 .añadido {
@@ -19,3 +23,15 @@ li {
   border-radius: 15px;
   background-color: antiquewhite;
 }
+
+h2, h3 , h4 , input{
+
+  color: black;
+  background-color: var(--main-color);
+}
+
+.navbar-end a {
+
+ color:  var(--main-color);
+}
+

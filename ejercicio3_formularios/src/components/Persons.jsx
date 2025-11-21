@@ -5,7 +5,7 @@ const Persons = ({person, deleteOne}) => {
         <div>
         <li>
         {person.name} {person.number}
-        <button onClick={deleteOne}>Eliminar</button>
+        <button className="button is-warning" onClick={deleteOne}>Eliminar</button>
         </li>
         </div>
     )
