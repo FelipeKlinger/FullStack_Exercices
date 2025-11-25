@@ -3,9 +3,9 @@ const Navbar = () => {
     return (
         <>
             <div className="block-promo">
-                <div className="mid"> 
-                <p>  REACTGRESS Servicio para Agendas </p>
-                <button className="button is-medium"></button>
+                <div className="mid">
+                    <p>Your phone's reminder list and phonebook.</p>
+                    <button className="button is-medium">Try ReactGress Early &gt;</button>
                 </div>
             </div>
             <nav>
@@ -23,28 +23,27 @@ const Navbar = () => {
                     <div id="navbarBasicExample" class="navbar-menu">
                         <div class="navbar-start">
                             <a class="navbar-item">
-                                Inicio
+                                Products
                             </a>
 
                             <a class="navbar-item">
-                                Numeros
+                                My Numbers
                             </a>
 
                             <a class="navbar-item">
-                                Personas
+                                Blog
                             </a>
                         </div>
                         <div class="navbar-end">
-                            <div class="navbar-item">
-                                <div class="buttons">
-                                    <a class="button is-link">
-                                        <strong>Contact</strong>
-                                    </a>
-                                    <a class="button is-large">
-                                        Dashboard
-                                    </a>
-                                </div>
-                            </div>
+                            <a class="navbar-item">
+                                Contact
+                            </a>
+                            <a class="navbar-item">
+                                Log in
+                            </a>
+                            <a class="button is-link">
+                                Get started
+                            </a>
                         </div>
                     </div>
                 </nav>

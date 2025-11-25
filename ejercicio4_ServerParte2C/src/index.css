@@ -5,7 +5,7 @@
   --secondary-color: #ff9800;
   --thertiary-color: #000000;
   --font--family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-  --navbar-bg-color: #8c45ee;
+  --navbar-bg-color: rgb(138 5 255);
 }
 
 body {
@@ -20,11 +20,24 @@ body {
   background-color: var(--navbar-bg-color);  
 }
 
-.block-promo p{
+.block-promo .mid{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
   color: var(--primary-color);
   text-align: center;
-  padding-top: 15px;
+  padding-top: 3px;
   font-size: 17px;
+}
+
+.block-promo .is-medium{
+  margin-left: 10px;
+  background-color: var(--thertiary-color);
+  color: var(--primary-color);
+  padding: 5px;
+  font-size: 15px;
+  border-radius: 0px;
 }
 
 .container {
@@ -55,12 +68,12 @@ body {
   margin-left: 25px;
 }
 
-.navbar-start a {
+.navbar-item {
   color: var(--primary-color);
   font-style: bold italic;
 }
 
-.navbar-start :hover {
+.navbar-start :hover, .navbar-end :hover {
   background-color: var(--navbar-bg-color);
   transform: scale(1.1);
   transition: transform 0.5s;
@@ -72,7 +85,7 @@ body {
   background-color: var(--primary-color);
 }
 .is-link {
-  background-color: var(--primary-color);
+  background-color: var(--secondary-color);
   color: var(--thertiary-color);
   border-radius: 0px;
 }
@@ -83,8 +96,9 @@ body {
   border-radius: 0px;
 }
 
-.is-large :hover, .is-link :hover {
+.is-large :hover, .is-link :hover  {
   background-color: var(--navbar-bg-color);
   transform: scale(1.1);
   transition: transform 0.5s;
 }
+
