@@ -1,11 +1,14 @@
 const Notification = ({ messege }) => {
 
     if (messege == null) {
-        return messege = null;
+        return null;
     }
+    
+    const className = messege.type === 'error' ? 'error' : 'añadido';
+    
     return (
-        <div className="añadido">
-            <p>{messege}</p>
+        <div className={className}>
+            <p>{messege.text}</p>
         </div>
     )
 }

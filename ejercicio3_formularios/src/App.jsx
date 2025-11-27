@@ -66,7 +66,7 @@ const App = (props) => {
         .create(personObject)
         .then(returnedPerson => {
           setPersons(persons.concat(returnedPerson));
-          setMessege(`Added ${returnedPerson.name}`);
+          setMessege({ text: `Added ${returnedPerson.name} ${returnedPerson.number} `, type: 'success' });
           setTimeout(() => {
             setMessege(null);
           }, 4000);
@@ -75,7 +75,13 @@ const App = (props) => {
           setNumberPhone('')
         })
         .catch(error => {
-          alert('Error al agregar el contacto');
+          setMessege({ 
+            text: error.response?.data?.error || 'Error creating person', 
+            type: 'error' 
+          });
+          setTimeout(() => {
+            setMessege(null);
+          }, 5000);
         });
     }
 
@@ -101,27 +107,27 @@ const App = (props) => {
   const personsToshow = filterName.trim() === '' ? persons : persons.filter(person => person.name.toLowerCase().includes(filterName.toLowerCase().trim()))
 
   return (
-<>
-  <div>
-    <Navbar />
-  </div>
-    <div className="container">
-      <Notification messege={message} />
-      <h2>Phonebook</h2>
-      <Filter handleFilter={handleFilter} filterName={filterName} /> <br />
-      <h3>Add a new</h3>
-      <PersonForm addPerson={addPerson} numberPhone={numberPhone} newName={newName} handleNoteChange={handleNoteChange} handleNumberPhone={handleNumberPhone} />
-      <h2>Numbers</h2>
-      <ul>
-        {personsToshow.map((person) => (
-          <Persons key={person.id}
-            person={person}
-            deleteOne={() => buttonDelete(person.id)} // 
-          />
-        ))}
-      </ul>
-  </div>
-</>
+    <>
+      <div>
+        <Navbar />
+      </div>
+      <div className="container">
+        <Notification messege={message} />
+        <h2>Phonebook</h2>
+        <Filter handleFilter={handleFilter} filterName={filterName} /> <br />
+        <h3>Add a new</h3>
+        <PersonForm addPerson={addPerson} numberPhone={numberPhone} newName={newName} handleNoteChange={handleNoteChange} handleNumberPhone={handleNumberPhone} />
+        <h2>Numbers</h2>
+        <ul>
+          {personsToshow.map((person) => (
+            <Persons key={person.id}
+              person={person}
+              deleteOne={() => buttonDelete(person.id)} // 
+            />
+          ))}
+        </ul>
+      </div>
+    </>
   )
 }
 
